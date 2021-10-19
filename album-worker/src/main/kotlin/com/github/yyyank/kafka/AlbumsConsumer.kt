@@ -8,11 +8,11 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 
 @Component
-class TracksConsumer {
-    private val log = LoggerFactory.getLogger(TracksConsumer::class.java)
+class AlbumsConsumer {
+    private val log = LoggerFactory.getLogger(AlbumsConsumer::class.java)
     val objectMapper: ObjectMapper = ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
-    @KafkaListener(topics = ["dbserver1.debezium-sample.tracks"], groupId = "tracks")
+    @KafkaListener(topics = ["dbserver1.debezium-sample.albums"], groupId = "albums")
     fun subscribeTracks(event: ConsumerRecord<String, String>) {
         log.info("[START]subscribe change data capture table --- tracks", event)
         val key = objectMapper.readValue(event.key(), Key::class.java)
@@ -83,9 +83,7 @@ class TracksConsumer {
 
         data class ValuePayload(
             val id: Int = 0,
-            val no: Int = 0,
             val name: String = "",
-            val review: String = "",
             val created_at: String = ""
         )
     }
