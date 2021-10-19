@@ -1,0 +1,20 @@
+server:
+  port:
+    8080
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/debezium-sample?useSSL=false&useLegacyDatetimeCode=false&rewriteBatchedStatements=true
+    username: mysqluser
+    password: mysqlpw
+  kafka:
+    bootstrap-servers: 192.168.11.4:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    properties:
+      spring.json.trusted.packages: '*'
+      max.poll.interval.ms: 1800000
