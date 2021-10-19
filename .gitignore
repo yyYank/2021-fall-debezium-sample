@@ -1,5 +1,5 @@
 # custom
-album-api/environments/docker/data
+environments/docker/data
 album-api/build
 album-api/.gradle
 
