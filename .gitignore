@@ -3,7 +3,6 @@ environments/docker/data
 album-api/build
 album-api/.gradle
 
-
 # Compiled class file
 *.class
 
