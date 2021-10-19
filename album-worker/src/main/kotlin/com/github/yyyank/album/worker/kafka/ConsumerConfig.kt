@@ -1,4 +1,4 @@
-package com.github.yyyank.kafka
+package com.github.yyyank.album.worker.kafka
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.ObjectProvider
@@ -29,7 +29,11 @@ class KafkaConsumerConfig {
                 val t = context.lastThrowable
                 val errorMessage = context.lastThrowable.message
                 val retryCount = context.retryCount
-                val groupId = if (t is ListenerExecutionFailedException) { t.groupId } else { "" }
+                val groupId = if (t is ListenerExecutionFailedException) {
+                    t.groupId
+                } else {
+                    ""
+                }
                 log.warn("kafka consumer error. message: $errorMessage, retryCount: $retryCount groupId: $groupId")
             } else {
                 log.error("kafka consumer error.")

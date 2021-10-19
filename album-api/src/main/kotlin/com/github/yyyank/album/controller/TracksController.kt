@@ -1,7 +1,8 @@
-package com.github.yyyank
+package com.github.yyyank.album.controller
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -11,16 +12,15 @@ class TracksController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createTracks(): HttpStatus {
+    fun createTracks(): ResponseEntity<Map<String, String>> {
         log.info("トラックが作られました")
-        return HttpStatus.CREATED
+        return ResponseEntity(mapOf("status" to HttpStatus.CREATED.name), HttpStatus.CREATED)
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    fun updateTracks(): HttpStatus {
+    fun updateTracks(): ResponseEntity<Map<String, String>> {
         log.info("トラックが更新されました")
-        return HttpStatus.OK
+        return ResponseEntity(mapOf("status" to HttpStatus.OK.name), HttpStatus.OK)
     }
 
     @GetMapping

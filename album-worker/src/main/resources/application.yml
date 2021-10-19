@@ -9,8 +9,18 @@ spring:
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    #      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    #      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
     properties:
       spring.json.trusted.packages: '*'
       max.poll.interval.ms: 1800000
+
+application:
+  rest:
+    client:
+      maxTotalConnection: 10
+      maxPerRouteConnection: 5
+      connectionTtl: 1m
+      connectionTimeout: 30s
+      connectionRequestTimeout: 5s
+      readTimeout: 30

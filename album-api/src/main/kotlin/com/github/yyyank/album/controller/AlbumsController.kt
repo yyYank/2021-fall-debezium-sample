@@ -1,7 +1,8 @@
-package com.github.yyyank
+package com.github.yyyank.album.controller
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -10,17 +11,15 @@ class AlbumsController {
     private val log = LoggerFactory.getLogger(AlbumsController::class.java)
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun createAlbums(): HttpStatus {
+    fun createAlbums(): ResponseEntity<Map<String, String>> {
         log.info("アルバムが作られました")
-        return HttpStatus.CREATED
+        return ResponseEntity(mapOf("status" to HttpStatus.CREATED.name), HttpStatus.CREATED)
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    fun updateAlbums(): HttpStatus {
+    fun updateAlbums(): ResponseEntity<Map<String, String>> {
         log.info("アルバムが更新されました")
-        return HttpStatus.OK
+        return ResponseEntity(mapOf("status" to HttpStatus.OK.name), HttpStatus.OK)
     }
 
     @GetMapping
