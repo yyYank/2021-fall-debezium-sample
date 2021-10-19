@@ -17,7 +17,6 @@ album-api/.gradle
 .mtj.tmp/
 
 .idea
-.idea/.gitignore
 
 # Package Files #
 *.jar
