@@ -1,7 +1,7 @@
 # custom
-review-api/environments/docker/data
-review-api/build
-review-api/.gradle
+album-api/environments/docker/data
+album-api/build
+album-api/.gradle
 
 
 # Compiled class file
