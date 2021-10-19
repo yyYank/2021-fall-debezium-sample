@@ -113,15 +113,4 @@ class AlbumApiHttpClient(
 
 }
 
-data class CreateAlbumsRequest(val id: Int, val name: String, val createdAt: LocalDateTime)
-data class CreateAlbumsResponse(val status: String)
-data class UpdateAlbumsRequest(val id: Int, val name: String, val createdAt: LocalDateTime)
-data class UpdateAlbumsResponse(val status: String)
-data class DeleteAlbumsRequest(val id: Int)
-data class DeleteAlbumsResponse(val status: String)
-data class CreateTracksRequest(val id: Int, val name: String, val createdAt: LocalDateTime)
-data class CreateTracksResponse(val status: String)
-data class UpdateTracksRequest(val id: Int, val name: String, val createdAt: LocalDateTime)
-data class UpdateTracksResponse(val status: String)
-data class DeleteTracksRequest(val id: Int)
-data class DeleteTracksResponse(val status: String)
+
