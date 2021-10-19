@@ -1,4 +1,4 @@
-package com.github.yyyank.album.worker.kafka
+package com.github.yyyank.album.worker.cdc.event
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper

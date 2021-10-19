@@ -1,4 +1,4 @@
-package com.github.yyyank.album.worker.kafka
+package com.github.yyyank.album.worker.cdc.event
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.ObjectProvider
