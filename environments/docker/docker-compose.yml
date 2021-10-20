@@ -10,7 +10,7 @@ services:
     ports:
       - "3316:3306"
     volumes:
-      - ./mysql/config:/etc/mysql/conf.d
+      - ./mysql/config/album-api-db:/etc/mysql/conf.d
       - ./data/album-api-db:/var/lib/mysql
       - ./mysql/init/album-api-db:/docker-entrypoint-initdb.d
   monolith-db:
@@ -23,7 +23,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql/config:/etc/mysql/conf.d
+      - ./mysql/config/monolith-db:/etc/mysql/conf.d
       - ./data/monolith-db:/var/lib/mysql
       - ./mysql/init/monolith-db:/docker-entrypoint-initdb.d
   zookeeper:

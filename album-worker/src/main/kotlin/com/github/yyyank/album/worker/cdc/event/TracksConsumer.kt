@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.yyyank.album.worker.http.AlbumApiHttpClient
 import com.github.yyyank.album.worker.http.CreateTracksRequest
-import com.github.yyyank.album.worker.http.DeleteTracksRequest
 import com.github.yyyank.album.worker.http.UpdateTracksRequest
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.slf4j.LoggerFactory
@@ -34,6 +33,8 @@ class TracksConsumer(val albumApiHttpClient: AlbumApiHttpClient) {
                     CreateTracksRequest(
                         id = value.payload.after?.id ?: error("illegal state"),
                         name = value.payload.after.name,
+                        review = value.payload.after.review,
+                        no = value.payload.after.no,
                         createdAt = LocalDateTime.parse(
                             value.payload.after.created_at,
                             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -47,6 +48,8 @@ class TracksConsumer(val albumApiHttpClient: AlbumApiHttpClient) {
                     UpdateTracksRequest(
                         id = value.payload.after?.id ?: error("illegal state"),
                         name = value.payload.after.name,
+                        review = value.payload.after.review,
+                        no = value.payload.after.no,
                         createdAt = LocalDateTime.parse(
                             value.payload.after.created_at,
                             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -57,9 +60,7 @@ class TracksConsumer(val albumApiHttpClient: AlbumApiHttpClient) {
             "d" -> {
                 log.info("delete tracks")
                 albumApiHttpClient.deleteTracks(
-                    DeleteTracksRequest(
-                        id = value.payload.before?.id ?: error("invalid payload")
-                    )
+                    id = value.payload.before?.id ?: error("invalid payload")
                 )
             }
             // FIXME 業務で書くと後々困りそうなコードだよ
@@ -126,7 +127,7 @@ class TracksConsumer(val albumApiHttpClient: AlbumApiHttpClient) {
             val id: Int = 0,
             val no: Int = 0,
             val name: String = "",
-            val review: String = "",
+            val review: Int = 0,
             val created_at: String = ""
         )
     }

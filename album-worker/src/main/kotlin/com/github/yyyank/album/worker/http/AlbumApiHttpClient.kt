@@ -6,7 +6,6 @@ import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
-import java.time.LocalDateTime
 
 @Component
 class AlbumApiHttpClient(
@@ -45,21 +44,21 @@ class AlbumApiHttpClient(
         return response ?: error("invalid state")
     }
 
-    fun deleteAlbums(request: DeleteAlbumsRequest): DeleteAlbumsResponse {
+    fun deleteAlbums(id: Int): DeleteAlbumsResponse {
         val headers = HttpHeaders().apply {
         }
         try {
             restTemplate.exchange(
-                "/albums",
+                "/albums?id={id}",
                 HttpMethod.DELETE,
                 HttpEntity<Void>(headers),
                 Void::class.java,
-                request.id
+                id
             ).body
         } catch (ex: RestClientException) {
             throw ex
         }
-        return DeleteAlbumsResponse("delted")
+        return DeleteAlbumsResponse("deleted")
     }
 
     fun createTracks(request: CreateTracksRequest): CreateTracksResponse {
@@ -94,16 +93,16 @@ class AlbumApiHttpClient(
         return response ?: error("invalid state")
     }
 
-    fun deleteTracks(request: DeleteTracksRequest): DeleteTracksResponse {
+    fun deleteTracks(id: Int): DeleteTracksResponse {
         val headers = HttpHeaders().apply {
         }
         try {
             restTemplate.exchange(
-                "/albums/tracks",
+                "/albums/tracks?id={id}",
                 HttpMethod.DELETE,
                 HttpEntity<Void>(headers),
                 Void::class.java,
-                request.id
+                id
             ).body
         } catch (ex: RestClientException) {
             throw ex

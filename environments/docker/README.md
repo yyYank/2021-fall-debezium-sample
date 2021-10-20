@@ -30,7 +30,7 @@ docker exec -it docker_kafka_1 /kafka/bin/kafka-topics.sh --list --zookeeper zoo
 ### とあるtopicを見る
 
 ```
-docker exec -it docker_kafka_1 /kafka/bin/kafka-console-consumer.sh --bootstrap-server "kafka:9092" --property print.key=true --property fetch.min.bytes=1 --topic "dbhistory.debezium-sample" --from-beginning
+docker exec -it docker_kafka_1 /kafka/bin/kafka-console-consumer.sh --bootstrap-server "kafka:9092" --property print.key=true --property fetch.min.bytes=1 --topic "dbserver1.debezium-sample.albums" --from-beginning
 ```
 
 ## kafka connectの使い方
@@ -44,7 +44,7 @@ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 
         "config": {
         "connector.class": "io.debezium.connector.mysql.MySqlConnector",
         "tasks.max": "1",
-        "database.hostname": "mysql",
+        "database.hostname": "monolith-db",
         "database.port": "3306",
         "database.user": "debezium",
         "database.password": "dbz",

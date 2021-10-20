@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.yyyank.album.worker.http.AlbumApiHttpClient
 import com.github.yyyank.album.worker.http.CreateAlbumsRequest
-import com.github.yyyank.album.worker.http.DeleteAlbumsRequest
 import com.github.yyyank.album.worker.http.UpdateAlbumsRequest
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.slf4j.LoggerFactory
@@ -58,9 +57,7 @@ class AlbumsConsumer(val albumApiHttpClient: AlbumApiHttpClient) {
             "d" -> {
                 log.info("delete albums")
                 albumApiHttpClient.deleteAlbums(
-                    DeleteAlbumsRequest(
-                        id = value.payload.before?.id ?: error("invalid payload")
-                    )
+                    id = value.payload.before?.id ?: error("invalid payload")
                 )
             }
             // FIXME 業務で書くと後々困りそうなコードだよ
