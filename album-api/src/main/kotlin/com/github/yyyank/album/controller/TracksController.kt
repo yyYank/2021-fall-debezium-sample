@@ -1,6 +1,5 @@
 package com.github.yyyank.album.controller
 
-import com.github.yyyank.album.repository.Track
 import com.github.yyyank.album.service.TracksService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -18,41 +17,29 @@ class TracksController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createTracks(@RequestBody request: CreateTracksRequest): ResponseEntity<Map<String, String>> {
-        log.info("トラックが作られました")
-        tracksService.createTrack(Track(
-            id = request.id,
-            no = request.no,
-            name = request.name,
-            review = request.review,
-            createdAt = request.createdAt
-        ))
+        log.info("トラックを作成しました")
+        tracksService.createTrack(request)
         return ResponseEntity(mapOf("status" to HttpStatus.CREATED.name), HttpStatus.CREATED)
     }
 
     @PutMapping
     fun updateTracks(@RequestBody request: UpdateTracksRequest): ResponseEntity<Map<String, String>> {
-        log.info("トラックが更新されました")
-        tracksService.updateTrack(Track(
-            id = request.id,
-            no = request.no,
-            name = request.name,
-            review = request.review,
-            createdAt = request.createdAt
-        ))
+        log.info("トラックを更新しました")
+        tracksService.updateTrack(request)
         return ResponseEntity(mapOf("status" to HttpStatus.OK.name), HttpStatus.OK)
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     fun fetchTracks(): HttpStatus {
-        log.info("トラックが取得されました")
+        log.info("トラックを取得しました")
         return HttpStatus.OK
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     fun deleteTracks(@RequestParam("id") id: Int): HttpStatus {
-        log.info("トラックが削除されました")
+        log.info("トラックを削除しました")
         tracksService.deleteTrack(id)
         return HttpStatus.OK
     }

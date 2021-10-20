@@ -1,6 +1,5 @@
 package com.github.yyyank.album.controller
 
-import com.github.yyyank.album.repository.Album
 import com.github.yyyank.album.service.AlbumsService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -15,30 +14,30 @@ class AlbumsController(val albumsService: AlbumsService) {
 
     @PostMapping
     fun createAlbums(@RequestBody request: CreateAlbumsRequest): ResponseEntity<Map<String, String>> {
-        log.info("アルバムが作られました")
-        albumsService.createAlbum(Album(id = request.id, name = request.name, createdAt = request.createdAt))
+        albumsService.createAlbum(request)
+        log.info("アルバムを作成しました")
         return ResponseEntity(mapOf("status" to HttpStatus.CREATED.name), HttpStatus.CREATED)
     }
 
     @PutMapping
     fun updateAlbums(@RequestBody request: UpdateAlbumsRequest): ResponseEntity<Map<String, String>> {
-        log.info("アルバムが更新されました")
-        albumsService.updateAlbum(Album(id = request.id, name = request.name, createdAt = request.createdAt))
+        albumsService.updateAlbum(request)
+        log.info("アルバムが更新しました")
         return ResponseEntity(mapOf("status" to HttpStatus.OK.name), HttpStatus.OK)
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     fun fetchAlbums(): HttpStatus {
-        log.info("アルバムが取得されました")
+        log.info("アルバムを取得しました")
         return HttpStatus.OK
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     fun deleteAlbums(@RequestParam("id") id: Int): HttpStatus {
-        log.info("アルバムが削除されました")
         albumsService.deleteAlbum(id)
+        log.info("アルバムを削除しました")
         return HttpStatus.OK
     }
 }
