@@ -5,6 +5,6 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/debezium-sample?useSSL=false&useLegacyDatetimeCode=false&rewriteBatchedStatements=true
-    username: mysqluser
-    password: mysqlpw
+    url: jdbc:mysql://localhost:3316/album?useSSL=false&useLegacyDatetimeCode=false&rewriteBatchedStatements=true
+    username: album
+    password: album

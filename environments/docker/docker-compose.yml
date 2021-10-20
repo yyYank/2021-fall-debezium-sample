@@ -1,6 +1,19 @@
 version: '2.1'
 services:
-  mysql:
+  album-api-db:
+    image: mysql:5.7.21
+    environment:
+      MYSQL_ROOT_PASSWORD: album
+      MYSQL_DATABASE: album
+      MYSQL_USER: album
+      MYSQL_PASSWORD: album
+    ports:
+      - "3316:3306"
+    volumes:
+      - ./mysql/config:/etc/mysql/conf.d
+      - ./data/album-api-db:/var/lib/mysql
+      - ./mysql/init/album-api-db:/docker-entrypoint-initdb.d
+  monolith-db:
     image: mysql:5.7.21
     environment:
       MYSQL_ROOT_PASSWORD: debezium
@@ -11,8 +24,8 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql/config:/etc/mysql/conf.d
-      - ./data/mysql:/var/lib/mysql
-      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./data/monolith-db:/var/lib/mysql
+      - ./mysql/init/monolith-db:/docker-entrypoint-initdb.d
   zookeeper:
     image: debezium/zookeeper:1.7
     ports:
@@ -34,7 +47,7 @@ services:
       - 8083:8083
     links:
       - kafka
-      - mysql
+      - monolith-db
     environment:
       - BOOTSTRAP_SERVERS=kafka:9092
       - GROUP_ID=1
