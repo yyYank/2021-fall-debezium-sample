@@ -1,7 +1,7 @@
 # custom
-environments/docker/data
-album-api/build
-album-api/.gradle
+build
+.gradle
+
 
 # Compiled class file
 *.class

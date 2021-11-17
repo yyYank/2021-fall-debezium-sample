@@ -1,0 +1,60 @@
+version: '2.1'
+services:
+  album-api-db:
+    image: mysql:5.7.21
+    environment:
+      MYSQL_ROOT_PASSWORD: album
+      MYSQL_DATABASE: album
+      MYSQL_USER: album
+      MYSQL_PASSWORD: album
+    ports:
+      - "3316:3306"
+    volumes:
+      - ./mysql/config/album-api-db:/etc/mysql/conf.d
+      - ./data/album-api-db:/var/lib/mysql
+      - ./mysql/init/album-api-db:/docker-entrypoint-initdb.d
+  monolith-db:
+    image: mysql:5.7.21
+    environment:
+      MYSQL_ROOT_PASSWORD: debezium
+      MYSQL_DATABASE: debezium-sample
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: mysqlpw
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/config/monolith-db:/etc/mysql/conf.d
+      - ./data/monolith-db:/var/lib/mysql
+      - ./mysql/init/monolith-db:/docker-entrypoint-initdb.d
+  zookeeper:
+    image: debezium/zookeeper:1.7
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+  kafka:
+    image: debezium/kafka:1.7
+    ports:
+      - 9092:9092
+    links:
+      - zookeeper
+    environment:
+      ADVERTISED_HOST_NAME: ${DOCKER_HOST_IP}
+      ZOOKEEPER_CONNECT: zookeeper:2181
+  connect:
+    image: debezium/connect:1.7
+    ports:
+      - 8083:8083
+    links:
+      - kafka
+      - monolith-db
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+networks:
+  default:
+    external:
+      name: 2021_fall_network_default
