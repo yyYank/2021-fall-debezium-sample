@@ -4,7 +4,7 @@
 ### networkつくる
 
 ```
-docker create network 2021_fall_network_default
+docker network create 2021_fall_network_default
 ```
 
 ### kafkaにIPアドレスを教えるための環境変数設定
